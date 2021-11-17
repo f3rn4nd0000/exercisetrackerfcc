@@ -49,7 +49,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
   let indexToInsert = list_of_users.findIndex(x => x._id === req.params._id);
   console.log(indexToInsert);
   list_of_users[indexToInsert]['description'] = req.body.description;
-  list_of_users[indexToInsert]['duration'] = req.body.duration;
+  list_of_users[indexToInsert]['duration'] = parseInt(req.body.duration);
   list_of_users[indexToInsert]['date'] = new Date(req.body.date).toDateString();
 
   // console.log(typeof(list_of_users[indexToInsert]));
