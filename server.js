@@ -1,21 +1,12 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const Pool = require('pg').Pool;
 require('dotenv').config();
 
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
-
-// const pool = new Pool({
-//   user: 'fernandom',
-//   host: 'localhost',
-//   database: 'api',
-//   password: '9973',
-//   port: 5432,
-// })
 
 let list_of_users = [];
 
@@ -25,6 +16,22 @@ app.get('/', (req, res) => {
 
 app.get('/api/users/', (req,res) => {
   res.send(list_of_users);
+});
+
+
+app.get('/api/users/:_id/logs', (req,res) =>{
+  let count = 0;
+  
+  res.json({
+    username: req.body.username,
+    count: count+1,
+    _id: req.body._id,
+    log: [{
+      description: req.body.description,
+      duration: parseInt(req.body.duration),
+      date: req.body.date,
+    }]
+  });
 });
   
 app.post('/api/users/', (req,res) => {
