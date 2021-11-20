@@ -35,12 +35,10 @@ app.get('/api/users/:_id/logs', (req,res) =>{
 app.post('/api/users/', (req,res) => {
   let new_user = {};
   let myUsername = req.body.username;
-  let list_of_exercises = [];
   let myId = Date.now().toString(36) + Math.random().toString(36).substr(2);
 
   new_user['username'] = myUsername;
   new_user['_id'] = myId;
-  new_user['exercises'] = list_of_exercises;
   list_of_users.push(new_user);
   
   res.json({
