@@ -51,25 +51,20 @@ app.post('/api/users/', (req,res) => {
 
 app.post('/api/users/:_id/exercises', (req,res) => {
   console.log(req.params._id);
-  let new_exercise = {};
-  // let indexToInsert = list_of_users.indexOf(req.params._id);
   let indexToInsert = list_of_users.findIndex(x => x._id === req.params._id);
   console.log(indexToInsert);
-  //o objeto exercise terá estes 3 campos preenchidos que depois serao inseridos no index correspondente da lista de users
-  new_exercise['description'] = req.body.description;
-  new_exercise['duration'] = parseInt(req.body.duration);
-  new_exercise['date'] = new Date(req.body.date).toString();
-  console.log(new_exercise);
-  //insere dados na lista de exercicios e depois na lista de usuarios  
-  list_of_exercises.push(new_exercise);
-  list_of_users[indexToInsert]['exercises'] = list_of_exercises;
+  list_of_users[indexToInsert]['description'] = req.body.description;
+  list_of_users[indexToInsert]['duration'] = req.body.duration;
+  list_of_users[indexToInsert]['date'] = new Date(req.body.date).toDateString();
 
   if(new Date(req.body.date).toDateString() === 'Invalid Date')
-    new_exercise['date'] = new Date().toDateString();
-  
+    list_of_users[indexToInsert]['date'] = new Date().toDateString();
+
   res.json({
     username: list_of_users[indexToInsert]['username'],
-    exercises: list_of_users[indexToInsert]['exercises'],
+    description:list_of_users[indexToInsert]['description'], 
+    duration: list_of_users[indexToInsert]['duration'],
+    date: list_of_users[indexToInsert]['date'],
     _id: list_of_users[indexToInsert]['_id']
   });
 });
